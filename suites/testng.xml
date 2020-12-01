@@ -3,7 +3,7 @@
 
 <suite name="ui">
     <test name="demo">
-        <parameter name="browser" value="chrome" />
+        <parameter name="browser" value="safari" />
         <classes>
             <class name="com.academy.project.DemoTests" />
         </classes>
