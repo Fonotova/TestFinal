@@ -5,7 +5,9 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.*;
+import org.testng.internal.Configuration;
 
 import java.io.FileReader;
 import java.lang.reflect.Method;
@@ -43,6 +45,12 @@ public class BaseTest {
                 System.setProperty("webdriver.gecko.driver", prop.getProperty("driver.firefox"));
                 driver = new FirefoxDriver();
                 break;
+            case "safari":
+                System.setProperty("webdriver.gecko.driver", prop.getProperty("driver.safari"));
+                driver = new SafariDriver();
+                break;
+
+
         }
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -50,10 +58,15 @@ public class BaseTest {
     }
 
     @BeforeMethod
+
     public void logTestStart(Method method, Object[] params) {
+        //Configuration.="safari";
+        driver.get("http://localhost:8081/subscribers");
+
         LOG.info("Start test {} with parameters {}",
                 method.getName(), Arrays.toString(params));
     }
+
 
     @AfterMethod(alwaysRun = true)
     public void logTestStop(Method method) {
